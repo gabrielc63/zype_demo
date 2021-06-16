@@ -1,0 +1,44 @@
+<main>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>Videos</h1>
+      <p class="lead text-muted">A video collection from Zype</p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+
+    <div class="container">
+
+      <div class="row">
+        <% if @videos.any? %>
+          <% @videos.each do |video| %>
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img src="<%= video["thumbnails"].first["url"] %>" class="img-thumbnail" alt="...">
+                <div class="card-body">
+                  <a href="#" class="stretched-link">
+                    <span class="name"><%= video["title"] %></span>
+                  </a>
+                  <% if video["subscription_required"] %>
+                    <p class="card-text">Requires subscription</p>
+                  <% end %>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">Created <%= time_ago_in_words(video["created_at"]) %> ago.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
