@@ -1,0 +1,36 @@
+<main>
+  <div class="container py-4">
+  <h1>Sign in</h1>
+
+  <div class="row">
+
+    <% flash.each do |type, message| %>
+      <div class="alert <%= bootstrap_class_for(type) %> alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <%= message %>
+      </div>
+    <% end %>
+
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_tag(sessions_path, {:class => 'row g-3'}) do %>
+
+        <div class="col-md-6">
+          <%= label_tag :username %>
+          <%= text_field_tag :username, nil, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= label_tag :password %>
+          <%= password_field_tag :password, nil, class: "form-control" %>
+        </div>
+
+        <div class="col-12">
+          <%= submit_tag "Sign in", class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+  </div>
+</main>

@@ -11,6 +11,18 @@
   </head>
 
   <body>
+    <nav class="navbar mb-2">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to "Home", root_path, class: "mx-2" %>
+        </div>
+        <% if signed_in? %>
+          <ul class="nav navbar-right ">
+            <li><%= link_to "Log out", signout_path, class: "mx-2", method: :delete %></li>
+          </ul>
+        <% end %>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

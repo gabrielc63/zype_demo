@@ -1,0 +1,26 @@
+<main>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>Videos</h1>
+      <p class="lead text-muted">A video collection</p>
+    </div>
+  </section>
+
+  <div class="container py-4">
+    <% flash.each do |type, message| %>
+      <div class="alert <%= bootstrap_class_for(type) %> alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <%= message %>
+      </div>
+    <% end %>
+
+    <div class="ratio ratio-16x9">
+      <% if @video[:premium] %>
+        <iframe src="https://player.zype.com/embed/<%= @video[:id] %>.html?access_token=<%= current_session %>">
+      <% else %>
+        <iframe
+          src="https://player.zype.com/embed/<%= @video[:id] %>.html?api_key=<%= @video[:api_key] %>">
+      <% end %>
+    </div>
+  </div>
+</main>

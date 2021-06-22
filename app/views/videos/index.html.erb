@@ -2,7 +2,7 @@
   <section class="jumbotron text-center">
     <div class="container">
       <h1>Videos</h1>
-      <p class="lead text-muted">A video collection from Zype</p>
+      <p class="lead text-muted">A video collection</p>
     </div>
   </section>
 
@@ -11,24 +11,27 @@
     <div class="container">
 
       <div class="row">
+        <% flash.each do |type, message| %>
+          <div class="alert <%= bootstrap_class_for(type) %> alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <%= message %>
+          </div>
+        <% end %>
+
         <% if @videos.any? %>
           <% @videos.each do |video| %>
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img src="<%= video["thumbnails"].first["url"] %>" class="img-thumbnail" alt="...">
+                <img src="<%= video["thumbnails"].first["url"] %>" class="img-thumbnail" alt="..." href="videos/<%= video["_id"] %>">
                 <div class="card-body">
-                  <a href="#" class="stretched-link">
+                  <a href="videos/<%= video["_id"] %>?premium=<%= video["subscription_required"] %>" class="stretched-link">
                     <span class="name"><%= video["title"] %></span>
                   </a>
                   <% if video["subscription_required"] %>
                     <p class="card-text">Requires subscription</p>
                   <% end %>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">Created <%= time_ago_in_words(video["created_at"]) %> ago.</small>
+                    <small class="text-muted">Created <%= video["created_at"].to_time.strftime('%B %e at %l:%M %p') %> </small>
                   </div>
                 </div>
               </div>
