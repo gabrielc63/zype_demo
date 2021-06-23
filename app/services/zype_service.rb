@@ -4,7 +4,7 @@ class ZypeService
 
   def self.get_videos(order: 'asc')
     app_key = Rails.application.credentials.zype[:app_key]
-    params = { app_key: app_key }
+    params = { app_key: app_key, order: order}
     response = ApiService.send_request(type: :get, url: API_URL, params: params)
     videos = JSON.parse(response)
     videos["response"]
