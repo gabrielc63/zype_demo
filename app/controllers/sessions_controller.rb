@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     username = params[:username]
     password = params[:password]
-    result = ZypeService.get_tokens(username: username, password: password)
+    result = ZypeService.get_tokens(username: username, password: password, grant_type: "password")
     if result["access_token"]
       session[:user_id] = username
       Rails.cache.fetch("access_token/#{username}", expires_in: result["expires_in"].seconds) do

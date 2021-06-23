@@ -15,16 +15,17 @@ class ZypeService
     {}
   end
 
-  def self.get_tokens(username:, password:)
+  def self.get_tokens(username:, password:, grant_type:, refresh_token: nil)
     client_secret = Rails.application.credentials.zype[:client_secret]
     client_id = Rails.application.credentials.zype[:client_id]
     body = {
-      "grant_type" => "password",
+      "grant_type" => grant_type,
       "client_secret" => client_secret,
       "client_id" => client_id,
       "username" => username,
       "password" => password
     }
+    body["refresh_token"] = refresh_token if refresh_token
 
     response = ApiService.send_request(type: :post, url: AUTH_URL, params: body)
     tokens = JSON.parse(response)
