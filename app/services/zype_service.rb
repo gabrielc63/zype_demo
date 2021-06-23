@@ -35,4 +35,17 @@ class ZypeService
     Rails.logger.error message
     {}
   end
+
+  def self.check_allowed_video(video_id, access_token)
+    url = "https://api.zype.com/videos/#{video_id}/entitled"
+    params = { video_id: video_id, access_token: access_token, api_key: Rails.application.credentials.zype[:api_key] }
+    response = ApiService.send_request(type: :get, url: url, params: params)
+    message = JSON.parse(response)
+    message
+  rescue JSON::ParserError, NoMethodError => e
+    message = "error message: get videos #{e.message}, " \
+      "req params: #{params}"
+    Rails.logger.error message
+    {}
+  end
 end

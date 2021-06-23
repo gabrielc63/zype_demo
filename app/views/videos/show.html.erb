@@ -14,13 +14,25 @@
       </div>
     <% end %>
 
-    <div class="ratio ratio-16x9">
-      <% if @video[:premium] %>
-        <iframe src="https://player.zype.com/embed/<%= @video[:id] %>.html?access_token=<%= current_session %>">
+    <% if @video[:premium] %>
+      <% if @video[:entitled] %>
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://player.zype.com/embed/<%= @video[:id] %>.html?access_token=<%= current_session %>">
+        </div>
       <% else %>
+        <div class="row">
+          <div class="col align-self-center">
+            <p>You are not entitled to see this video</p>
+            <button type="button" class="btn btn-light">Subscribe</button>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="ratio ratio-16x9">
         <iframe
           src="https://player.zype.com/embed/<%= @video[:id] %>.html?api_key=<%= @video[:api_key] %>">
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </main>
